@@ -26,6 +26,9 @@ epi_model <- function(){
   i4 <- as.logical(i4)
   i5 <- readline(prompt = "¿El modelo es heterogéneo? Conteste nuevamente con T o F ")
   i5 <- as.logical(i5)
+  
 }
 
 epi_model()
+
+#Lo que llevo si jala, si no contestas con T o F la función se detiene
