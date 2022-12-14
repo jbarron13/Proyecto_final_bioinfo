@@ -32,3 +32,23 @@ epi_model <- function(){
 epi_model()
 
 #Lo que llevo si jala, si no contestas con T o F la función se detiene
+
+
+#SI DE PRUEBA
+SI <- function(t,state,parameters){
+  with(as.list(c(state, parameters)), {
+    dS <- -beta*S*I + gama*I
+    dI <- beta*S*I - gama*I
+    list(c(dS, dI))
+  })
+}
+
+parametro1 <- c(beta = 0.2, gama = 0.4)
+principio <- c(S = 9, I = 1)
+tiempo <- seq(c(0,20, by = 0.001))
+out <- ode(principio, tiempo, SI, parametro1)
+
+grafica <- matplot(out[ ,1], out[ ,2:8], type = "l", xlab = "Tiempo", 
+                   main = "Modelo SI", lwd = 2)
+legend("Topright", c("Susceptible", "Infectado"))
+
