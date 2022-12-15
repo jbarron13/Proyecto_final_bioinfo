@@ -52,3 +52,39 @@ grafica <- matplot(out[ ,1], out[ ,2:8], type = "l", xlab = "Tiempo",
                    main = "Modelo SI", lwd = 2)
 legend("Topright", c("Susceptible", "Infectado"))
 
+#Acomodo de las preguntas para hacer el modelo
+
+SIp <- function () {
+  p1 <- readline(prompt = "¿El modelo deseado es un SI?" )
+p1 <- as.character(p1)
+if (p1 == "SI"){
+  SI <- function(t,state,parameters){
+    with(as.list(c(state, parameters)), {
+      dS <- -beta2*dapri*dapri1 + gama1*dapri1
+      dI <- beta1*dapri*dapri1 - gama2*dapri1
+      list(c(dS, dI))
+    })
+  }
+  beta1 <- readline(prompt = "Cuál es el valor de beta?" )
+  beta1 <- as.numeric(beta1)
+  beta2 <- readline(prompt = "Cuál es el valor de beta?" )
+  beta2 <- as.numeric(beta1)
+  gama1 <- readline(prompt = "Cuál es el valor de gama?" )
+  gama1 <- as.numeric(gama1)
+  gama2 <- readline(prompt = "Cuál es el valor de gama?" )
+  gama2 <- as.numeric(gama1)
+  dapri <- readline(prompt = "Cuál es el valor de S?" )
+  dapri <- as.numeric(dapri)
+  dapri1 <- readline(prompt = "Cuál es el valor de I?" )
+  dapri1 <- as.numeric(dapri1)
+  parametro2 <- c(beta1, beta2, gama1, gama2)
+  daprincipio <- c(dapri, dapri1)
+  taaim <- seq(c(0, 20, by = 0.001))
+  outo <- ode(daprincipio, taaim, SI, parametro2)
+  return(outo)
+}
+}
+
+#Todo corre bien pero al momento de hacer el cálculo arroja un error en "-beta"
+#Ahora arroja un error al multiplicar beta*dapri
+#OLVIDALO, YA QUEDÓ, es muy poco, pero es un inicio c´:
