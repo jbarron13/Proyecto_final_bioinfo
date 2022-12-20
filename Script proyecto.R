@@ -57,8 +57,8 @@ legend("Topright", c("Susceptible", "Infectado"))
 SIp <- function () {
   p1 <- readline(prompt = "¿El modelo deseado es un SI?" )
 p1 <- as.character(p1)
-if (p1 == "SI"){
-  SI <- function(t,state,parameters){
+if (p1 == "SIS"){
+  SIS <- function(t,state,parameters){
     with(as.list(c(state, parameters)), {
       dS <- -beta2*dapri*dapri1 + gama1*dapri1
       dI <- beta1*dapri*dapri1 - gama2*dapri1
@@ -88,3 +88,89 @@ if (p1 == "SI"){
 #Todo corre bien pero al momento de hacer el cálculo arroja un error en "-beta"
 #Ahora arroja un error al multiplicar beta*dapri
 #OLVIDALO, YA QUEDÓ, es muy poco, pero es un inicio c´:
+
+#Ecuaciones para los modelos sin poblacion
+#SIR 
+SIR <- function(t,state,parameters){
+  with(as.list(c(state, parameters)), {
+    dS <- -beta*S*I 
+    dI <- beta*S*I - gama*I
+    dR <- gama*I
+    list(c(dS, dI, dR))
+  })
+}
+
+#SIRS 
+SIR <- function(t,state,parameters){
+  with(as.list(c(state, parameters)), {
+    dS <- -beta*S*I + delta*R
+    dI <- beta*S*I - gama*I
+    dR <- gama*I - delta*R
+    list(c(dS, dI, dR))
+  })
+}
+
+#SEIR 
+SEIR <- function(t,state,parameters){
+  with(as.list(c(state, parameters)), {
+    dS <- -beta*S*I 
+    dE <- beta*S*I - delta*I
+    dI <- delta*I - gama*R
+    dR <- gama*R
+    list(c(dS, dE, dI, dR))
+  })
+}
+
+#SEIRS 
+SEIR <- function(t,state,parameters){
+  with(as.list(c(state, parameters)), {
+    dS <- -beta*S*I + ro*R
+    dE <- beta*S*I - delta*I
+    dI <- delta*I - gama*R
+    dR <- gama*R - ro*R
+    list(c(dS, dE, dI, dR))
+  })
+}
+
+#Ecuaciones para los modelos con poblacion
+#SIR 
+SIR <- function(t,state,parameters){
+  with(as.list(c(state, parameters)), {
+    dS <- mu*N -beta*S*I - mu*S
+    dI <- beta*S*I - gama*I - mu*I
+    dR <- gama*I - mu*R
+    list(c(dS, dI, dR))
+  })
+}
+
+#SIRS 
+SIR <- function(t,state,parameters){
+  with(as.list(c(state, parameters)), {
+    dS <- mu*N -beta*S*I + delta*R - mu*S
+    dI <- beta*S*I - gama*I - mu*I
+    dR <- gama*I - delta*R - mu*R
+    list(c(dS, dI, dR))
+  })
+}
+
+#SEIR 
+SEIR <- function(t,state,parameters){
+  with(as.list(c(state, parameters)), {
+    dS <- mu*N -beta*S*I -mu*S 
+    dE <- beta*S*I - delta*I - mu*E
+    dI <- delta*I - gama*R - mu*I
+    dR <- gama*R -  mu*R
+    list(c(dS, dE, dI, dR))
+  })
+}
+
+#SEIRS 
+SEIR <- function(t,state,parameters){
+  with(as.list(c(state, parameters)), {
+    dS <- mu*N -beta*S*I + ro*R - mu*S
+    dE <- beta*S*I - delta*I -mu*E
+    dI <- delta*I - gama*R - mu*I
+    dR <- gama*R - ro*R - mu*R
+    list(c(dS, dE, dI, dR))
+  })
+}
