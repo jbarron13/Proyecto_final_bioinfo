@@ -52,8 +52,8 @@ grafica <- matplot(out[ ,1], out[ ,2:8], type = "l", xlab = "Tiempo",
                    main = "Modelo SI", lwd = 2)
 legend("Topright", c("Susceptible", "Infectado"))
 
-#Acomodo de las preguntas para hacer el modelo
 
+#Funcion prueba
 SIp <- function () {
   p1 <- readline(prompt = "¿El modelo deseado es un SI?" )
 p1 <- as.character(p1)
@@ -174,3 +174,118 @@ SEIR <- function(t,state,parameters){
     list(c(dS, dE, dI, dR))
   })
 }
+
+
+#Ahora si viene lo chido
+epi_model <- function(){
+  library(deSolve)
+  p1 <- readline(prompt = "¿El modelo deseado es un SI, SIS, SIR, SIRS, SEIR, SEIRS?" )
+  p1 <- as.character(p1)
+  if(p1 == "SI"){
+    p1.a <- readline(prompt = "¿El modelo lleva demografía? En caso de llevar, contestar con T o  TRUE, si no es el caso, contestar con F o False ")
+    p1.a <- as.logical(p1.a)
+    if(p1.a == FALSE){
+      SI <- function(t,state,parameters){
+        with(as.list(c(state, parameters)), {
+          dS <- -beta*S*I
+          dI <- beta*S*I
+          list(c(dS, dI))
+        })
+      }
+      beta <- readline(prompt = "¿Cuál es el valor de beta?" )
+      beta <- as.numeric(beta)
+      S <- readline(prompt = "¿Cuál es el valor de S?" )
+      S <- as.numeric(S)
+      I <- readline(prompt = "¿Cuál es el valor de I?" )
+      I <- as.numeric(I)
+      parametro2 <- c(beta)
+      daprincipio <- c(S, I)
+      taaim <- seq(c(0, 20, by = 0.001))
+      outo <- ode(daprincipio, taaim, SI, parametro2)
+      return(outo)
+    }else if(p1.a == T){
+      SI <- function(t,state,parameters){
+        with(as.list(c(state, parameters)), {
+          dS <- mu*N -beta*S*I - mu1*S
+          dI <- beta*S*I - mu2*I
+          list(c(dS, dI))
+        })
+      }
+      mu <- readline(prompt = "¿Cuál es la tasa de crecimiento de los nacimientos?" )
+      mu <- as.numeric(mu)
+      N <- readline(prompt = "¿Cuál es el valor de N?" )
+      N <- as.numeric(N)
+      beta <- readline(prompt = "¿Cuál es el valor de beta?" )
+      beta <- as.numeric(beta)
+      S <- readline(prompt = "¿Cuál es el valor de S?" )
+      S <- as.numeric(S)
+      mu1 <- readline(prompt = "¿Cuál es la tasa de muerte de los susceptibles?" )
+      mu1 <- as.numeric(mu1)
+      I <- readline(prompt = "¿Cuál es el valor de I?" )
+      I <- as.numeric(I)
+      mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados?" )
+      mu2 <- as.numeric(mu2)
+      parametro2 <- c(beta, mu, mu1, mu2)
+      daprincipio <- c(S, I)
+      taaim <- seq(c(0, 20, by = 0.001))
+      outo <- ode(daprincipio, taaim, SI, parametro2)
+      return(outo)
+    }
+  }else if(p1 == "SIS"){
+    p1.a <- readline(prompt = "¿El modelo lleva demografía? En caso de llevar, contestar con T o  TRUE, si no es el caso, contestar con F o False ")
+    p1.a <- as.logical(p1.a)
+    if(p1.a == FALSE){
+      SIS <- function(t,state,parameters){
+        with(as.list(c(state, parameters)), {
+          dS <- -beta*S*I + gama*I
+          dI <- beta*S*I + gama*I
+          list(c(dS, dI))
+        })
+      }
+      beta <- readline(prompt = "¿Cuál es el valor de beta?" )
+      beta <- as.numeric(beta)
+      gama <- readline(prompt = "¿Cuál es el valor de gama?" )
+      gama <- as.numeric(gama)
+      S <- readline(prompt = "¿Cuál es el valor de S?" )
+      S <- as.numeric(S)
+      I <- readline(prompt = "¿Cuál es el valor de I?" )
+      I <- as.numeric(I)
+      parametro2 <- c(beta, gama)
+      daprincipio <- c(S, I)
+      taaim <- seq(c(0, 20, by = 0.001))
+      outo <- ode(daprincipio, taaim, SI, parametro2)
+      return(outo)
+    }else if(p1.a == T){
+      SIS <- function(t,state,parameters){
+        with(as.list(c(state, parameters)), {
+          dS <- mu*N - beta*S*I  + gama*I - mu1*S
+          dI <- beta*S*I - gama*I - mu2*I
+          list(c(dS, dI))
+        })
+      }
+      mu <- readline(prompt = "¿Cuál es la tasa de crecimiento de los nacimientos?" )
+      mu <- as.numeric(mu)
+      N <- readline(prompt = "¿Cuál es el valor de N?" )
+      N <- as.numeric(N)
+      beta <- readline(prompt = "¿Cuál es el valor de beta?" )
+      beta <- as.numeric(beta)
+      gama <- readline(prompt = "¿Cuál es el valor de gama?" )
+      gama <- as.numeric(gama)
+      S <- readline(prompt = "¿Cuál es el valor de S?" )
+      S <- as.numeric(S)
+      mu1 <- readline(prompt = "¿Cuál es la tasa de muerte de los susceptibles?" )
+      mu1 <- as.numeric(mu1)
+      I <- readline(prompt = "¿Cuál es el valor de I?" )
+      I <- as.numeric(I)
+      mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados?" )
+      mu2 <- as.numeric(mu2)
+      parametro2 <- c(beta, mu, mu1, mu2)
+      daprincipio <- c(S, I)
+      taaim <- seq(c(0, 20, by = 0.001))
+      outo <- ode(daprincipio, taaim, SI, parametro2)
+      return(outo)
+    }
+  }
+}
+
+#Ya medio jala
