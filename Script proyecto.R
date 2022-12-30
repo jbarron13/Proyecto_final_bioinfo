@@ -175,13 +175,18 @@ SEIR <- function(t,state,parameters){
   })
 }
 
+library(jpeg)
+i1 <-readJPEG("image_model/prueba_1.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i1,0,0,1,1)
 
-#Ahora si viene lo chido
+
+#Ahora si viene lo chido ### andube experimentando con las imagenes y lo logre, solo queda hacerlas y optimizarlas
 epi_model <- function(){
+  library(jpeg)
   library(deSolve)
   p1 <- readline(prompt = "¿El modelo deseado es un SI, SIS, SIR, SIRS, SEIR, SEIRS?" )
   p1 <- as.character(p1)
   if(p1 == "SI"){
+    i1 <-readJPEG("image_model/prueba_1.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i1,0,0,1,1)
     p1.a <- readline(prompt = "¿El modelo lleva demografía? En caso de llevar, contestar con T o  TRUE, si no es el caso, contestar con F o False ")
     p1.a <- as.logical(p1.a)
     if (p1.a == FALSE){
@@ -296,8 +301,12 @@ epi_model <- function(){
   }
 }
 
-#Ya medio jala
+epi_model()
 
+#Ya medio jala
+###############################################################################3
+##############################################################################
+###############################################################################
 #Nuevo Modelo 
 modelando <- function(){
   library(deSolve)
@@ -480,3 +489,4 @@ modelando <- function(){
   }
   
 }
+modelando()
