@@ -504,7 +504,7 @@ modelando <- function(){
     taaim <- seq(c(0, 20, by = 0.001))
     outo <- ode(daprincipio, taaim, SIRS, parametro2)
     return(outo)
-  }else if(p1 == SIRS & p2 == F){
+  }else if(p1 == "SIRS" & p2 == F){
     SIRS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- - beta*S*I + delta*R
