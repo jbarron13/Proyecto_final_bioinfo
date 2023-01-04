@@ -310,11 +310,14 @@ epi_model()
 #Nuevo Modelo 
 modelando <- function(){
   library(deSolve)
-  p1 <- readline(prompt = "¿El modelo deseado es un SI, SIS, SIR, SIRS, SEIR, SEIRS?" )
+  library(jpeg)
+  p1 <- readline(prompt = "¿El modelo deseado es un SI, SIS, SIR, SIRS, SEIR, SEIRS? : " )
   p1 <- as.character(p1)
-  p2 <- readline(prompt = "¿El modelo lleva demografía? En caso de llevar, contestar con T o  TRUE, si no es el caso, contestar con F o False ")
+  p2 <- readline(prompt = "¿El modelo lleva demografía? 
+                 En caso de llevar, contestar con T o  TRUE, si no es el caso, contestar con F o False :  ")
   p2 <- as.logical(p2)
-  if(p1 == "SI" & p2 == T){
+  if(p1 == "SI" & p2 == T){  ## LISTO GRF
+    i1 <-readJPEG("image_model/prueba_1.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i1,0,0,1,1)
     SI <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- mu*N - beta*S*I - mu1*S
@@ -336,12 +339,21 @@ modelando <- function(){
     I <- as.numeric(I)
     mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados?" )
     mu2 <- as.numeric(mu2)
-    parametro2 <- c(beta, mu, mu1, mu2)
-    daprincipio <- c(S, I)
-    taaim <- seq(c(0, 20, by = 0.001))
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- as.numeric(ti)
+    parametro2 <- c(beta= beta, mu=mu, mu1=mu1, mu2=mu2)
+    daprincipio <- c(S=S, I=I)
+    taaim <- seq(0, ti, by = 0.001)
     outo <- ode(daprincipio, taaim, SI, parametro2)
-    return(outo)
+    matplot(outo[ , 1], outo[ , 2:3], type = "l", xlab = "Tiempo", ylab = "Población",
+            main = "Modelo SI D.", lwd = 2) ; legend("topright", c("Susceptible", "Infectado"), col = 1:3,
+                                                  lty=1:3,cex=0.5)
+    
   }else if(p1 == "SI" & p2 == F){
+    i1 <-readJPEG("image_model/prueba_1.jpeg",native=TRUE) ; plot(0:1,0:1
+                                                                  ,type="n",ann=FALSE, axes=FALSE
+                                                                  ) ; rasterImage(i1,0,0,1,1)
+    
     SI <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- - beta*S*I
@@ -355,11 +367,16 @@ modelando <- function(){
     S <- as.numeric(S)
     I <- readline(prompt = "¿Cuál es el valor de I?" )
     I <- as.numeric(I)
-    parametro2 <- c(beta)
-    daprincipio <- c(S, I)
-    taaim <- seq(c(0, 20, by = 0.001))
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- as.numeric(ti)
+    parametro2 <- c(beta=beta)
+    daprincipio <- c(S=S, I=I)
+    taaim <- seq(0, ti, by = 0.001)
     outo <- ode(daprincipio, taaim, SI, parametro2)
-    return(outo)
+    matplot(outo[ , 1], outo[ , 2:3], type = "l", xlab = "Tiempo", ylab = "Población",
+            main = " Modelo SI", lwd = 2) ; legend("topright", c("Susceptible", "Infectado"), 
+                                                   col = 1:3,lty=1:3,cex=0.5)
+    
   }else if(p1 == "SIS" & p2 == T){
     SIS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
@@ -384,11 +401,16 @@ modelando <- function(){
     I <- as.numeric(I)
     mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados?" )
     mu2 <- as.numeric(mu2)
-    parametro2 <- c(beta, gama, mu, N, mu1, mu2)
-    daprincipio <- c(S, I)
-    taaim <- seq(c(0, 20, by = 0.001))
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- as.numeric(ti)
+    
+    parametro2 <- c(beta=beta, gama=gama, mu=mu, N=N, mu1=mu1, mu2=mu2)
+    daprincipio <- c(S=S, I=I)
+    taaim <- seq(0, ti, by = 0.001)
     outo <- ode(daprincipio, taaim, SIS, parametro2)
-    return(outo)
+    matplot(outo[ , 1], outo[ , 2:3], type = "l", xlab = "Tiempo", ylab = "Población",
+            main = " Modelo SIS D.", lwd = 2) ; legend("topright", c("Susceptible", "Infectado"), 
+                                                   col = 1:3,lty=1:3,cex=0.5)
   }else if(p1 == "SIS" & p2 == F){
     SIS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
@@ -405,11 +427,16 @@ modelando <- function(){
     S <- as.numeric(S)
     I <- readline(prompt = "¿Cuál es el valor de I?" )
     I <- as.numeric(I)
-    parametro2 <- c(beta, gama)
-    daprincipio <- c(S, I)
-    taaim <- seq(c(0, 20, by = 0.001))
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- as.numeric(ti)
+    parametro2 <- c(beta=beta, gama=gama)
+    daprincipio <- c(S=S, I=I)
+    taaim <- seq(0, ti, by = 0.001)
     outo <- ode(daprincipio, taaim, SIS, parametro2)
-    return(outo)
+    matplot(outo[ , 1], outo[ , 2:3], type = "l", xlab = "Tiempo", ylab = "Población",
+            main = " Modelo SIS", lwd = 2) ; legend("topright", c("Susceptible", "Infectado"), 
+                                                   col = 1:3,lty=1:3,cex=0.5)
+    
   }else if(p1 == "SIR" & p2 == T){
     SIR <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
@@ -439,11 +466,15 @@ modelando <- function(){
     R <- as.numeric(R)
     mu3 <- readline(prompt = "¿Cuál es la tasa de muerte de los recuperados?" )
     mu3 <- as.numeric(mu3)
-    parametro2 <- c(beta, gama, mu, N, mu1, mu2, mu3)
-    daprincipio <- c(S, I, R)
-    taaim <- seq(c(0, 20, by = 0.001))
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- as.numeric(ti)
+    parametro2 <- c(beta=beta, gama=gama, mu=mu, N=N, mu1=mu1, mu2=mu2, mu3=mu3)
+    daprincipio <- c(S=S, I=I, R=R)
+    taaim <- seq(0, ti, by = 0.001)
     outo <- ode(daprincipio, taaim, SIR, parametro2)
-    return(outo)
+    matplot(outo[ , 1], outo[ , 2:4], type = "l", xlab = "Tiempo", ylab = "Población",
+            main = " Modelo SIR", lwd = 2) ; legend("topright", c("Susceptible", "Infectado", "Recuperado"), 
+                                                   col = 1:4,lty=1:4,cex=0.5)
   }else if(p1 == "SIR" & p2 == F){
     SIR <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
@@ -463,11 +494,15 @@ modelando <- function(){
     I <- as.numeric(I)
     R <- readline(prompt = "¿Cuál es el valor de R?" )
     R <- as.numeric(R)
-    parametro2 <- c(beta, gama)
-    daprincipio <- c(S, I,R)
-    taaim <- seq(c(0, 20, by = 0.001))
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- as.numeric(ti)
+    parametro2 <- c(beta=beta, gama=gama)
+    daprincipio <- c(S=S, I=I, R=R)
+    taaim <- seq(0, ti, by = 0.001)
     outo <- ode(daprincipio, taaim, SIR, parametro2)
-    return(outo)
+    matplot(outo[ , 1], outo[ , 2:4], type = "l", xlab = "Tiempo", ylab = "Población",
+            main = " Modelo SIR", lwd = 2) ; legend("topright", c("Susceptible", "Infectado","Recuperado"), 
+                                                   col = 1:4,lty=1:4,cex=0.5)
   }else if(p1 == "SIRS" & p2 == T){
     SIRS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
@@ -499,11 +534,15 @@ modelando <- function(){
     R <- as.numeric(R)
     mu3 <- readline(prompt = "¿Cuál es la tasa de muerte de los recuperados?" )
     mu3 <- as.numeric(mu3)
-    parametro2 <- c(beta, gama, mu, N, mu1, mu2, mu3)
-    daprincipio <- c(S, I, R)
-    taaim <- seq(c(0, 20, by = 0.001))
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- as.numeric(ti)
+    parametro2 <- c(beta=beta, gama=gama, mu=mu, N=N, mu1=mu1, mu2=mu2, mu3=mu3)
+    daprincipio <- c(S=S, I=I, R=R)
+    taaim <- seq(0, ti, by = 0.001)
     outo <- ode(daprincipio, taaim, SIRS, parametro2)
-    return(outo)
+    matplot(outo[ , 1], outo[ , 2:4], type = "l", xlab = "Tiempo", ylab = "Población",
+            main = " Modelo SIRS D.", lwd = 2) ; legend("topright", c("Susceptible", "Infectado","Recuperado"), 
+                                                    col = 1:4,lty=1:4,cex=0.5)
   }else if(p1 == "SIRS" & p2 == F){
     SIRS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
@@ -525,11 +564,16 @@ modelando <- function(){
     I <- as.numeric(I)
     R <- readline(prompt = "¿Cuál es el valor de R?" )
     R <- as.numeric(R)
-    parametro2 <- c(beta, gama, delta)
-    daprincipio <- c(S, I, R)
-    taaim <- seq(c(0, 20, by = 0.001))
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- as.numeric(ti)
+    parametro2 <- c(beta=beta, gama=gama, delta=delta)
+    daprincipio <- c(S=S, I=I, R=R)
+    taaim <- seq(0, ti, by = 0.001)
     outo <- ode(daprincipio, taaim, SIRS, parametro2)
-    return(outo)
+    matplot(outo[ , 1], outo[ , 2:4], type = "l", xlab = "Tiempo", ylab = "Población",
+            main = " Modelo SIRS", lwd = 2) ; legend("topright", c("Susceptible", "Infectado","Recuperado"), 
+                                                    col = 1:4,lty=1:4,cex=0.5)
+    
   }else if(p1 == "SEIR" & p2 == T){
     SEIR <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
@@ -566,17 +610,21 @@ modelando <- function(){
     R <- as.numeric(R)
     mu4 <- readline(prompt = "¿Cuál es la tasa de muerte de los recuperados?" )
     mu4 <- as.numeric(mu4)
-    parametro2 <- c(beta, delta, gama, mu, N, mu1, mu2, mu3, mu4)
-    daprincipio <- c(S, E, I, R)
-    taaim <- seq(c(0, 20, by = 0.001))
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- as.numeric(ti)
+    parametro2 <- c(beta=beta, delta=delta, gama=gama, mu=mu, N=N, mu1=mu1, mu2=mu2, mu3=mu3, mu4=mu4)
+    daprincipio <- c(S=S, E=E, I=I, R=R)
+    taaim <- seq(0, ti, by = 0.001)
     outo <- ode(daprincipio, taaim, SEIR, parametro2)
-    return(outo)
+    matplot(outo[ , 1], outo[ , 2:5], type = "l", xlab = "Tiempo", ylab = "Población",
+            main = " Modelo SEIR", lwd = 2) ; legend("topright", c("Susceptible", "Expuesto","Infectado","Recuperado"), 
+                                                    col = 1:5,lty=1:5,cex=0.5)
   }else if(p1 == "SEIR" & p2 == F){
     SEIR <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- - beta*S*I 
         dE <- beta*S*I - delta*E
-        dI <- delta*I - gama*I
+        dI <- delta*E - gama*I
         dR <- gama*I
         list(c(dS, dE, dI, dR))
       })
@@ -593,11 +641,17 @@ modelando <- function(){
     E <- as.numeric(E)
     I <- readline(prompt = "¿Cuál es el valor de infectados?" )
     I <- as.numeric(I)
-    parametro2 <- c(beta, delta, gama)
-    daprincipio <- c(S, E, I)
-    taaim <- seq(c(0, 20, by = 0.001))
+    R <- readline(prompt = "¿Cuál es el valor de recuperados?" )
+    R <- as.numeric(R)
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- as.numeric(ti)
+    parametro2 <- c(beta=beta, delta=delta, gama=gama)
+    daprincipio <- c(S=S, E=E, I=I, R=R)
+    taaim <- seq(0, ti, by = 0.001)
     outo <- ode(daprincipio, taaim, SEIR, parametro2)
-    return(outo)
+    matplot(outo[ , 1], outo[ , 2:5], type = "l", xlab = "Tiempo", ylab = "Población",
+            main = " Modelo SEIR", lwd = 2) ; legend("topright", c("Susceptible", "Expuesto","Infectado","Recuperado"), 
+                                                     col = 1:5,lty=1:5,cex=0.5)
   }else if(p1 == "SEIRS" & p2 == T){
     SEIRS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
@@ -636,11 +690,15 @@ modelando <- function(){
     R <- as.numeric(R)
     mu4 <- readline(prompt = "¿Cuál es la tasa de muerte de los recuperados?" )
     mu4 <- as.numeric(mu4)
-    parametro2 <- c(beta, delta, gama, mu, N, mu1, mu2, mu3, mu4)
-    daprincipio <- c(S, E, I, R)
-    taaim <- seq(c(0, 20, by = 0.001))
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- as.numeric(ti)
+    parametro2 <- c(beta=beta, delta=delta, gama=gama, mu=mu, N=N, mu1=mu1, mu2=mu2, mu3=mu3, mu4=mu4)
+    daprincipio <- c(S=S, E=E, I=I, R=R)
+    taaim <- seq(0, ti, by = 0.001)
     outo <- ode(daprincipio, taaim, SEIRS, parametro2)
-    return(outo)
+    matplot(outo[ , 1], outo[ , 2:5], type = "l", xlab = "Tiempo", ylab = "Población",
+            main = " Modelo SEIRS", lwd = 2) ; legend("topright", c("Susceptible", "Expuesto","Infectado","Recuperado"), 
+                                                     col = 1:5,lty=1:5,cex=0.5)
   }else if(p1 == "SEIRS" & p2 == F){
     SEIRS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
@@ -667,11 +725,15 @@ modelando <- function(){
     I <- as.numeric(I)
     R <- readline(prompt = "¿Cuál es el valor de R?" )
     R <- as.numeric(R)
-    parametro2 <- c(beta, delta, gama, mu, N, mu1, mu2, mu3, mu4)
-    daprincipio <- c(S, E, I, R)
-    taaim <- seq(c(0, 20, by = 0.001))
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- as.numeric(ti)
+    parametro2 <- c(beta=beta, delta=delta, gama=gama, mu=mu, N=N, mu1=mu1, mu2=mu2, mu3=mu3, mu4=mu4)
+    daprincipio <- c(S=S, E=E, I=I, R=R)
+    taaim <- seq(0, ti, by = 0.001)
     outo <- ode(daprincipio, taaim, SEIRS, parametro2)
-    return(outo)
+    matplot(outo[ , 1], outo[ , 2:5], type = "l", xlab = "Tiempo", ylab = "Población",
+            main = " Modelo SEIRS", lwd = 2) ; legend("topright", c("Susceptible", "Expuesto","Infectado","Recuperado"), 
+                                                      col = 1:5,lty=1:5,cex=0.5)
   }
   
 }
