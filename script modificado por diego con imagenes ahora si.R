@@ -16,6 +16,7 @@
 
 library(jpeg)
 i1 <-readJPEG("image_model_2/prueba_1.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i1,0,0,1,1)
+i1 <-readJPEG("image_model_2/SIP.jpeg",native=TRUE) ; plot(0:5,0:5,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i1,-0.42,-1.5  ,5.35  ,6.5)
 
 #MODELO FINAL
 #FALTA QUE SAQUE LAS IMÁGENES DE LOS MODELOS Y GRÁFICAS
