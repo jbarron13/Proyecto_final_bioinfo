@@ -1,34 +1,14 @@
-#Preguntas a realizar
+# Script Final #
 
-#¿Lleva demografía? Si o no
-#¿Es con vectores? Si o no
-#¿Es homógeneo? Si o no
-#¿Es heterógeneo? SI o no
-
-#Tipos de Modelo
-#SI
-#SIS
-#SIR
-#SIRS
-#SEIR
-#SEIRS
-
-
-library(jpeg)
-i1 <-readJPEG("image_model/prueba_1.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i1,0,0,1,1)
-
-#MODELO FINAL
-#FALTA QUE SAQUE LAS IMÁGENES DE LOS MODELOS Y GRÁFICAS
 modelando <- function(){
   library(deSolve)
   library(jpeg)
   p1 <- readline(prompt = "¿El modelo deseado es un SI, SIS, SIR, SIRS, SEIR, SEIRS? : " )
   p1 <- as.character(p1)
-  p2 <- readline(prompt = "¿El modelo lleva demografía? 
-                 En caso de llevar, contestar con T o  TRUE, si no es el caso, contestar con F o False :  ")
+  p2 <- readline(prompt = "¿El modelo lleva demografía? En caso de llevar, contestar con T o  TRUE, si no es el caso, contestar con F o False :  ")
   p2 <- as.logical(p2)
   if(p1 == "SI" & p2 == T){  ## LISTO GRF
-    i1 <-readJPEG("image_model/prueba_1.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i1,0,0,1,1)
+    i1 <-readJPEG("image_model_2/SIP.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i1,0,0,1,1)
     SI <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- mu*N - beta*S*I - mu1*S
@@ -36,21 +16,21 @@ modelando <- function(){
         list(c(dS, dI))
       })
     }
-    mu <- readline(prompt = "¿Cuál es la tasa de crecimiento de los nacimientos?" )
+    mu <- readline(prompt = "¿Cuál es la tasa de crecimiento de los nacimientos? Por favor, ingrese el número únicamente:" )
     mu <- as.numeric(mu)
-    N <- readline(prompt = "¿Cuál es el valor de N?" )
+    N <- readline(prompt = "¿Cuál es el valor de N? Por favor, ingrese el número únicamente:")
     N <- as.numeric(N)
-    beta <- readline(prompt = "¿Cuál es el valor de beta?" )
-    beta <- as.numeric(beta)
-    S <- readline(prompt = "¿Cuál es el valor de S?" )
+    S <- readline(prompt = "¿Cuátos susceptibles hay? Por favor, ingrese el número únicamente:" )
     S <- as.numeric(S)
-    mu1 <- readline(prompt = "¿Cuál es la tasa de muerte de los susceptibles?" )
+    mu1 <- readline(prompt = "¿Cuál es la tasa de muerte de los susceptibles? Por favor, ingrese el número únicamente:"  )
     mu1 <- as.numeric(mu1)
-    I <- readline(prompt = "¿Cuál es el valor de I?" )
+    beta <- readline(prompt = "¿Cuál es el valor de beta? Por favor, ingrese el número únicamente:")
+    beta <- as.numeric(beta)
+    I <- readline(prompt = "¿Cuántos infectados hay? Por favor, ingrese el número únicamente:")
     I <- as.numeric(I)
-    mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados?" )
+    mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados? Por favor, ingrese el número únicamente:" )
     mu2 <- as.numeric(mu2)
-    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? Por favor, ingrese el número únicamente:" )
     ti <- as.numeric(ti)
     parametro2 <- c(beta= beta, mu=mu, mu1=mu1, mu2=mu2)
     daprincipio <- c(S=S, I=I)
@@ -58,12 +38,10 @@ modelando <- function(){
     outo <- ode(daprincipio, taaim, SI, parametro2)
     matplot(outo[ , 1], outo[ , 2:3], type = "l", xlab = "Tiempo", ylab = "Población",
             main = "Modelo SI D.", lwd = 2) ; legend("topright", c("Susceptible", "Infectado"), col = 1:3,
-                                                  lty=1:3,cex=0.5)
+                                                     lty=1:3,cex=0.5)
     
   }else if(p1 == "SI" & p2 == F){
-    i1 <-readJPEG("image_model/prueba_1.jpeg",native=TRUE) ; plot(0:1,0:1
-                                                                  ,type="n",ann=FALSE, axes=FALSE
-                                                                  ) ; rasterImage(i1,0,0,1,1)
+    i2 <-readJPEG("image_model_2/SI.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i2,0,0,1,1)
     
     SI <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
@@ -72,13 +50,13 @@ modelando <- function(){
         list(c(dS, dI))
       })
     }
-    beta <- readline(prompt = "¿Cuál es el valor de beta?" )
-    beta <- as.numeric(beta)
-    S <- readline(prompt = "¿Cuál es el valor de S?" )
+    S <- readline(prompt = "¿Cuántos susceptibles hay? Por favor, ingrese el número únicamente:")
     S <- as.numeric(S)
-    I <- readline(prompt = "¿Cuál es el valor de I?" )
+    beta <- readline(prompt = "¿Cuál es el valor de beta? Por favor, ingrese el número únicamente:")
+    beta <- as.numeric(beta)
+    I <- readline(prompt = "¿Cuántos infectados hay? Por favor, ingrese el número únicamente:")
     I <- as.numeric(I)
-    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? Por favor, ingrese el número únicamente:")
     ti <- as.numeric(ti)
     parametro2 <- c(beta=beta)
     daprincipio <- c(S=S, I=I)
@@ -89,6 +67,7 @@ modelando <- function(){
                                                    col = 1:3,lty=1:3,cex=0.5)
     
   }else if(p1 == "SIS" & p2 == T){
+    i3 <-readJPEG("image_model_2/SISP.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i3,0,0,1,1)
     SIS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- mu*N - beta*S*I + gama*I - mu1*S
@@ -96,23 +75,23 @@ modelando <- function(){
         list(c(dS, dI))
       })
     }
-    mu <- readline(prompt = "¿Cuál es la tasa de crecimiento de los nacimientos?" )
+    mu <- readline(prompt = "¿Cuál es la tasa de crecimiento de los nacimientos? Por favor, ingrese el número únicamente:" )
     mu <- as.numeric(mu)
-    N <- readline(prompt = "¿Cuál es el valor de N?" )
+    N <- readline(prompt = "¿Cuál es el valor de N? Por favor, ingrese el número únicamente:")
     N <- as.numeric(N)
-    beta <- readline(prompt = "¿Cuál es el valor de beta?" )
-    beta <- as.numeric(beta)
-    gama <- readline(prompt = "¿Cuál es el valor de gama?" )
-    gama <- as.numeric(gama)
-    S <- readline(prompt = "¿Cuál es el valor de S?" )
+    S <- readline(prompt = "¿Cuántos susceptibles hay? Por favor, ingrese el número únicamente:")
     S <- as.numeric(S)
-    mu1 <- readline(prompt = "¿Cuál es la tasa de muerte de los susceptibles?" )
+    mu1 <- readline(prompt = "¿Cuál es la tasa de muerte de los susceptibles? Por favor, ingrese el número únicamente:")
     mu1 <- as.numeric(mu1)
-    I <- readline(prompt = "¿Cuál es el valor de I?" )
+    beta <- readline(prompt = "¿Cuál es el valor de beta? Por favor, ingrese el número únicamente:")
+    beta <- as.numeric(beta)
+    I <- readline(prompt = "¿Cuántos infectados hay? Por favor, ingrese el número únicamente:")
     I <- as.numeric(I)
-    mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados?" )
+    mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados? Por favor, ingrese el número únicamente:")
     mu2 <- as.numeric(mu2)
-    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    gama <- readline(prompt = "¿Cuál es el valor de gama? Por favor, ingrese el número únicamente:")
+    gama <- as.numeric(gama)
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? Por favor, ingrese el número únicamente:")
     ti <- as.numeric(ti)
     
     parametro2 <- c(beta=beta, gama=gama, mu=mu, N=N, mu1=mu1, mu2=mu2)
@@ -121,8 +100,9 @@ modelando <- function(){
     outo <- ode(daprincipio, taaim, SIS, parametro2)
     matplot(outo[ , 1], outo[ , 2:3], type = "l", xlab = "Tiempo", ylab = "Población",
             main = " Modelo SIS D.", lwd = 2) ; legend("topright", c("Susceptible", "Infectado"), 
-                                                   col = 1:3,lty=1:3,cex=0.5)
+                                                       col = 1:3,lty=1:3,cex=0.5)
   }else if(p1 == "SIS" & p2 == F){
+    i4 <-readJPEG("image_model_2/SIS.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i4,0,0,1,1)
     SIS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- - beta*S*I + gama*I
@@ -130,15 +110,15 @@ modelando <- function(){
         list(c(dS, dI))
       })
     }
-    beta <- readline(prompt = "¿Cuál es el valor de beta?" )
-    beta <- as.numeric(beta)
-    gama <- readline(prompt = "¿Cuál es el valor de gama?" )
-    gama <- as.numeric(gama)
-    S <- readline(prompt = "¿Cuál es el valor de S?" )
+    S <- readline(prompt = "¿Cuántos susceptibles hay? Por favor, ingrese el número únicamente:")
     S <- as.numeric(S)
-    I <- readline(prompt = "¿Cuál es el valor de I?" )
+    beta <- readline(prompt = "¿Cuál es el valor de beta? Por favor, ingrese el número únicamente:")
+    beta <- as.numeric(beta)
+    I <- readline(prompt = "¿Cuántos infectados hay? Por favor, ingrese el número únicamente:")
     I <- as.numeric(I)
-    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    gama <- readline(prompt = "¿Cuál es el valor de gama? Por favor, ingrese el número únicamente:" )
+    gama <- as.numeric(gama)
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? Por favor, ingrese el número únicamente:")
     ti <- as.numeric(ti)
     parametro2 <- c(beta=beta, gama=gama)
     daprincipio <- c(S=S, I=I)
@@ -146,9 +126,10 @@ modelando <- function(){
     outo <- ode(daprincipio, taaim, SIS, parametro2)
     matplot(outo[ , 1], outo[ , 2:3], type = "l", xlab = "Tiempo", ylab = "Población",
             main = " Modelo SIS", lwd = 2) ; legend("topright", c("Susceptible", "Infectado"), 
-                                                   col = 1:3,lty=1:3,cex=0.5)
+                                                    col = 1:3,lty=1:3,cex=0.5)
     
   }else if(p1 == "SIR" & p2 == T){
+    i5 <-readJPEG("image_model_2/SIRP.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i5,0,0,1,1)
     SIR <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- mu*N - beta*S*I - mu1*S
@@ -157,27 +138,27 @@ modelando <- function(){
         list(c(dS, dI, dR))
       })
     }
-    mu <- readline(prompt = "¿Cuál es la tasa de crecimiento de los nacimientos?" )
+    mu <- readline(prompt = "¿Cuál es la tasa de crecimiento de los nacimientos? Por favor, ingrese el número únicamente:")
     mu <- as.numeric(mu)
-    N <- readline(prompt = "¿Cuál es el valor de N?" )
+    N <- readline(prompt = "¿Cuál es el valor de N? Por favor, ingrese el número únicamente:")
     N <- as.numeric(N)
-    beta <- readline(prompt = "¿Cuál es el valor de beta?" )
-    beta <- as.numeric(beta)
-    gama <- readline(prompt = "¿Cuál es el valor de gama?" )
-    gama <- as.numeric(gama)
-    S <- readline(prompt = "¿Cuál es el valor de S?" )
+    S <- readline(prompt = "¿Cuántos susceptibles hay? Por favor, ingrese el número únicamente:")
     S <- as.numeric(S)
-    mu1 <- readline(prompt = "¿Cuál es la tasa de muerte de los susceptibles?" )
+    mu1 <- readline(prompt = "¿Cuál es la tasa de muerte de los susceptibles? Por favor, ingrese el número únicamente:")
     mu1 <- as.numeric(mu1)
-    I <- readline(prompt = "¿Cuál es el valor de infectados?" )
+    beta <- readline(prompt = "¿Cuál es el valor de beta? Por favor, ingrese el número únicamente:")
+    beta <- as.numeric(beta)
+    I <- readline(prompt = "¿Cuántos infectados hay? Por favor, ingrese el número únicamente:")
     I <- as.numeric(I)
-    mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados?" )
+    mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados? Por favor, ingrese el número únicamente:")
     mu2 <- as.numeric(mu2)
-    R <- readline(prompt = "¿Cuál es el valor de R?" )
+    gama <- readline(prompt = "¿Cuál es el valor de gama? Por favor, ingrese el número únicamente:")
+    gama <- as.numeric(gama)
+    R <- readline(prompt = "¿Cuántos recuperados hay? Por favor, ingrese el número únicamente:")
     R <- as.numeric(R)
-    mu3 <- readline(prompt = "¿Cuál es la tasa de muerte de los recuperados?" )
+    mu3 <- readline(prompt ="¿Cuál es la tasa de muerte de los recuperados? Por favor, ingrese el número únicamente:")
     mu3 <- as.numeric(mu3)
-    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? Por favor, ingrese el número únicamente:")
     ti <- as.numeric(ti)
     parametro2 <- c(beta=beta, gama=gama, mu=mu, N=N, mu1=mu1, mu2=mu2, mu3=mu3)
     daprincipio <- c(S=S, I=I, R=R)
@@ -185,8 +166,9 @@ modelando <- function(){
     outo <- ode(daprincipio, taaim, SIR, parametro2)
     matplot(outo[ , 1], outo[ , 2:4], type = "l", xlab = "Tiempo", ylab = "Población",
             main = " Modelo SIR", lwd = 2) ; legend("topright", c("Susceptible", "Infectado", "Recuperado"), 
-                                                   col = 1:4,lty=1:4,cex=0.5)
+                                                    col = 1:4,lty=1:4,cex=0.5)
   }else if(p1 == "SIR" & p2 == F){
+    i6 <-readJPEG("image_model_2/SIR.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i6,0,0,1,1)
     SIR <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- - beta*S*I 
@@ -195,17 +177,17 @@ modelando <- function(){
         list(c(dS, dI, dR))
       })
     }
-    beta <- readline(prompt = "¿Cuál es el valor de beta?" )
-    beta <- as.numeric(beta)
-    gama <- readline(prompt = "¿Cuál es el valor de gama?" )
-    gama <- as.numeric(gama)
-    S <- readline(prompt = "¿Cuál es el valor de S?" )
+    S <- readline(prompt = "¿Cuántos susceptibles hay? Por favor, ingrese el número únicamente:")
     S <- as.numeric(S)
-    I <- readline(prompt = "¿Cuál es el valor de I?" )
+    beta <- readline(prompt = "¿Cuál es el valor de beta? Por favor, ingrese el número únicamente:")
+    beta <- as.numeric(beta)
+    I <- readline(prompt = "¿Cuántos infectados hay? Por favor, ingrese el número únicamente:")
     I <- as.numeric(I)
-    R <- readline(prompt = "¿Cuál es el valor de R?" )
+    gama <- readline(prompt = "¿Cuál es el valor de gama? Por favor, ingrese el número únicamente:")
+    gama <- as.numeric(gama)
+    R <- readline(prompt = "¿Cuántos recuperados hay? Por favor, ingrese el número únicamente:")
     R <- as.numeric(R)
-    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? Por favor, ingrese el número únicamente:")
     ti <- as.numeric(ti)
     parametro2 <- c(beta=beta, gama=gama)
     daprincipio <- c(S=S, I=I, R=R)
@@ -213,8 +195,9 @@ modelando <- function(){
     outo <- ode(daprincipio, taaim, SIR, parametro2)
     matplot(outo[ , 1], outo[ , 2:4], type = "l", xlab = "Tiempo", ylab = "Población",
             main = " Modelo SIR", lwd = 2) ; legend("topright", c("Susceptible", "Infectado","Recuperado"), 
-                                                   col = 1:4,lty=1:4,cex=0.5)
+                                                    col = 1:4,lty=1:4,cex=0.5)
   }else if(p1 == "SIRS" & p2 == T){
+    i7 <-readJPEG("image_model_2/SIRSP.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i7,0,0,1,1)
     SIRS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- mu*N - beta*S*I + delta*R - mu1*S
@@ -225,27 +208,27 @@ modelando <- function(){
     }
     mu <- readline(prompt = "¿Cuál es la tasa de crecimiento de los nacimientos?" )
     mu <- as.numeric(mu)
-    N <- readline(prompt = "¿Cuál es el valor de N?" )
+    N <- readline(prompt = "¿Cuál es el valor de N? Por favor, ingrese el número únicamente:")
     N <- as.numeric(N)
-    beta <- readline(prompt = "¿Cuál es el valor de beta?" )
-    beta <- as.numeric(beta)
-    delta <- readline(prompt = "¿Cuál es el valor de delta?" )
-    delta <- as.numeric(delta)
-    gama <- readline(prompt = "¿Cuál es el valor de gama?" )
-    gama <- as.numeric(gama)
-    S <- readline(prompt = "¿Cuál es el valor de S?" )
+    S <- readline(prompt = "¿Cuántos susceptibles hay? Por favor, ingrese el número únicamente:")
     S <- as.numeric(S)
-    mu1 <- readline(prompt = "¿Cuál es la tasa de muerte de los susceptibles?" )
+    mu1 <- readline(prompt = "¿Cuál es la tasa de muerte de los susceptibles? Por favor, ingrese el número únicamente:")
     mu1 <- as.numeric(mu1)
-    I <- readline(prompt = "¿Cuál es el valor de infectados?" )
+    beta <- readline(prompt = "¿Cuál es el valor de beta? Por favor, ingrese el número únicamente:")
+    beta <- as.numeric(beta)
+    I <- readline(prompt = "¿Cuántos infectados hay? Por favor, ingrese el número únicamente:")
     I <- as.numeric(I)
-    mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados?" )
+    mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados? Por favor, ingrese el número únicamente:")
     mu2 <- as.numeric(mu2)
-    R <- readline(prompt = "¿Cuál es el valor de R?" )
+    gama <- readline(prompt = "¿Cuál es el valor de gama? Por favor, ingrese el número únicamente:")
+    gama <- as.numeric(gama)
+    R <- readline(prompt = "¿Cuántos recuperados hay? Por favor, ingrese el número únicamente:")
     R <- as.numeric(R)
-    mu3 <- readline(prompt = "¿Cuál es la tasa de muerte de los recuperados?" )
+    mu3 <- readline(prompt = "¿Cuál es la tasa de muerte de los recuperados? Por favor, ingrese el número únicamente:")
     mu3 <- as.numeric(mu3)
-    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    delta <- readline(prompt = "¿Cuál es el valor de delta? Por favor, ingrese el número únicamente:")
+    delta <- as.numeric(delta)
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? Por favor, ingrese el número únicamente:" )
     ti <- as.numeric(ti)
     parametro2 <- c(beta=beta, gama=gama, mu=mu, N=N, mu1=mu1, mu2=mu2, mu3=mu3)
     daprincipio <- c(S=S, I=I, R=R)
@@ -253,8 +236,9 @@ modelando <- function(){
     outo <- ode(daprincipio, taaim, SIRS, parametro2)
     matplot(outo[ , 1], outo[ , 2:4], type = "l", xlab = "Tiempo", ylab = "Población",
             main = " Modelo SIRS D.", lwd = 2) ; legend("topright", c("Susceptible", "Infectado","Recuperado"), 
-                                                    col = 1:4,lty=1:4,cex=0.5)
+                                                        col = 1:4,lty=1:4,cex=0.5)
   }else if(p1 == "SIRS" & p2 == F){
+    i8 <-readJPEG("image_model_2/SIRS.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i8,0,0,1,1)
     SIRS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- - beta*S*I + delta*R
@@ -263,19 +247,19 @@ modelando <- function(){
         list(c(dS, dI, dR))
       })
     }
-    beta <- readline(prompt = "¿Cuál es el valor de beta?" )
-    beta <- as.numeric(beta)
-    delta <- readline(prompt = "¿Cuál es el valor de delta?" )
-    delta <- as.numeric(delta)
-    gama <- readline(prompt = "¿Cuál es el valor de gama?" )
-    gama <- as.numeric(gama)
-    S <- readline(prompt = "¿Cuál es el valor de S?" )
+    S <- readline(prompt = "¿Cuántos susceptibles hay? Por favor, ingrese el número únicamente:")
     S <- as.numeric(S)
-    I <- readline(prompt = "¿Cuál es el valor de infectados?" )
+    beta <- readline(prompt = "¿Cuál es el valor de beta? Por favor, ingrese el número únicamente:")
+    beta <- as.numeric(beta)
+    I <- readline(prompt = "¿Cuántos infectados hay? Por favor, ingrese el número únicamente:" )
     I <- as.numeric(I)
-    R <- readline(prompt = "¿Cuál es el valor de R?" )
+    gama <- readline(prompt = "¿Cuál es el valor de gama? Por favor, ingrese el número únicamente:")
+    gama <- as.numeric(gama)
+    R <- readline(prompt = "¿Cuántos recuperados hay? Por favor, ingrese el número únicamente:")
     R <- as.numeric(R)
-    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    delta <- readline(prompt = "¿Cuál es el valor de delta? Por favor, ingrese el número únicamente:")
+    delta <- as.numeric(delta)
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? Por favor, ingrese el número únicamente:")
     ti <- as.numeric(ti)
     parametro2 <- c(beta=beta, gama=gama, delta=delta)
     daprincipio <- c(S=S, I=I, R=R)
@@ -283,9 +267,10 @@ modelando <- function(){
     outo <- ode(daprincipio, taaim, SIRS, parametro2)
     matplot(outo[ , 1], outo[ , 2:4], type = "l", xlab = "Tiempo", ylab = "Población",
             main = " Modelo SIRS", lwd = 2) ; legend("topright", c("Susceptible", "Infectado","Recuperado"), 
-                                                    col = 1:4,lty=1:4,cex=0.5)
+                                                     col = 1:4,lty=1:4,cex=0.5)
     
   }else if(p1 == "SEIR" & p2 == T){
+    i9 <-readJPEG("image_model_2/SEIRP.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i9,0,0,1,1)
     SEIR <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- mu*N - beta*S*I - mu1*S
@@ -297,31 +282,31 @@ modelando <- function(){
     }
     mu <- readline(prompt = "¿Cuál es la tasa de crecimiento de los nacimientos?" )
     mu <- as.numeric(mu)
-    N <- readline(prompt = "¿Cuál es el valor de N?" )
+    N <- readline(prompt = "¿Cuál es el valor de N? Por favor, ingrese el número únicamente:")
     N <- as.numeric(N)
-    beta <- readline(prompt = "¿Cuál es el valor de beta?" )
-    beta <- as.numeric(beta)
-    delta <- readline(prompt = "¿Cuál es el valor de delta?" )
-    delta <- as.numeric(delta)
-    gama <- readline(prompt = "¿Cuál es el valor de gama?" )
-    gama <- as.numeric(gama)
-    S <- readline(prompt = "¿Cuál es el valor de S?" )
+    S <- readline(prompt = "¿Cuántos susceptibles hay? Por favor, ingrese el número únicamente:")
     S <- as.numeric(S)
-    mu1 <- readline(prompt = "¿Cuál es la tasa de muerte de los susceptibles?" )
+    mu1 <- readline(prompt = "¿Cuál es la tasa de muerte de los susceptibles? Por favor, ingrese el número únicamente:")
     mu1 <- as.numeric(mu1)
-    E <- readline(prompt = "¿Cuál es el valor de expuestos?" )
+    beta <- readline(prompt = "¿Cuál es el valor de beta? Por favor, ingrese el número únicamente:")
+    beta <- as.numeric(beta)
+    E <- readline(prompt = "¿Cuántos expuestos hay? Por favor, ingrese el número únicamente:")
     E <- as.numeric(E)
-    mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los expuestos?" )
+    mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los expuestos? Por favor, ingrese el número únicamente:")
     mu2 <- as.numeric(mu2)
-    I <- readline(prompt = "¿Cuál es el valor de infectados?" )
+    delta <- readline(prompt = "¿Cuál es el valor de delta? Por favor, ingrese el número únicamente:")
+    delta <- as.numeric(delta)
+    I <- readline(prompt = "¿Cuántos infectados hay? Por favor, ingrese el número únicamente:")
     I <- as.numeric(I)
-    mu3 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados?" )
+    mu3 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados? Por favor, ingrese el número únicamente:")
     mu3 <- as.numeric(mu3)
-    R <- readline(prompt = "¿Cuál es el valor de R?" )
+    gama <- readline(prompt = "¿Cuál es el valor de gama? Por favor, ingrese el número únicamente:")
+    gama <- as.numeric(gama)
+    R <- readline(prompt = "¿Cuántos recuperados hay? Por favor, ingrese el número únicamente:")
     R <- as.numeric(R)
-    mu4 <- readline(prompt = "¿Cuál es la tasa de muerte de los recuperados?" )
+    mu4 <- readline(prompt = "¿Cuál es la tasa de muerte de los recuperados? Por favor, ingrese el número únicamente:")
     mu4 <- as.numeric(mu4)
-    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? Por favor, ingrese el número únicamente:")
     ti <- as.numeric(ti)
     parametro2 <- c(beta=beta, delta=delta, gama=gama, mu=mu, N=N, mu1=mu1, mu2=mu2, mu3=mu3, mu4=mu4)
     daprincipio <- c(S=S, E=E, I=I, R=R)
@@ -329,8 +314,9 @@ modelando <- function(){
     outo <- ode(daprincipio, taaim, SEIR, parametro2)
     matplot(outo[ , 1], outo[ , 2:5], type = "l", xlab = "Tiempo", ylab = "Población",
             main = " Modelo SEIR", lwd = 2) ; legend("topright", c("Susceptible", "Expuesto","Infectado","Recuperado"), 
-                                                    col = 1:5,lty=1:5,cex=0.5)
+                                                     col = 1:5,lty=1:5,cex=0.5)
   }else if(p1 == "SEIR" & p2 == F){
+    i10 <-readJPEG("image_model_2/SEIR.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i10,0,0,1,1)
     SEIR <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- - beta*S*I 
@@ -340,21 +326,21 @@ modelando <- function(){
         list(c(dS, dE, dI, dR))
       })
     }
-    beta <- readline(prompt = "¿Cuál es el valor de beta?" )
-    beta <- as.numeric(beta)
-    delta <- readline(prompt = "¿Cuál es el valor de delta?" )
-    delta <- as.numeric(delta)
-    gama <- readline(prompt = "¿Cuál es el valor de gama?" )
-    gama <- as.numeric(gama)
-    S <- readline(prompt = "¿Cuál es el valor de S?" )
+    S <- readline(prompt = "¿Cuántos susceptibles hay? Por favor, ingrese el número únicamente:")
     S <- as.numeric(S)
-    E <- readline(prompt = "¿Cuál es el valor de expuestos?" )
+    beta <- readline(prompt = "¿Cuál es el valor de beta? Por favor, ingrese el número únicamente:")
+    beta <- as.numeric(beta)
+    E <- readline(prompt = "¿Cuántos expuestos hay? Por favor, ingrese el número únicamente:")
     E <- as.numeric(E)
-    I <- readline(prompt = "¿Cuál es el valor de infectados?" )
+    delta <- readline(prompt = "¿Cuál es el valor de delta? Por favor, ingrese el número únicamente:" )
+    delta <- as.numeric(delta)
+    I <- readline(prompt = "¿Cuántos infectados hay? Por favor, ingrese el número únicamente:")
     I <- as.numeric(I)
-    R <- readline(prompt = "¿Cuál es el valor de recuperados?" )
+    gama <- readline(prompt = "¿Cuál es el valor de gama? Por favor, ingrese el número únicamente:")
+    gama <- as.numeric(gama)
+    R <- readline(prompt = "¿Cuántos recuperados hay? Por favor, ingrese el número únicamente:")
     R <- as.numeric(R)
-    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? Por favor, ingrese el número únicamente:")
     ti <- as.numeric(ti)
     parametro2 <- c(beta=beta, delta=delta, gama=gama)
     daprincipio <- c(S=S, E=E, I=I, R=R)
@@ -364,6 +350,7 @@ modelando <- function(){
             main = " Modelo SEIR", lwd = 2) ; legend("topright", c("Susceptible", "Expuesto","Infectado","Recuperado"), 
                                                      col = 1:5,lty=1:5,cex=0.5)
   }else if(p1 == "SEIRS" & p2 == T){
+    i11 <-readJPEG("image_model_2/SEIRSP.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i11,0,0,1,1)
     SEIRS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- mu*N - beta*S*I + ro*R - mu1*S
@@ -373,35 +360,35 @@ modelando <- function(){
         list(c(dS, dE, dI, dR))
       })
     }
-    mu <- readline(prompt = "¿Cuál es la tasa de crecimiento de los nacimientos?" )
+    mu <- readline(prompt = "¿Cuál es la tasa de crecimiento de los nacimientos? Por favor, ingrese el número únicamente:")
     mu <- as.numeric(mu)
-    N <- readline(prompt = "¿Cuál es el valor de N?" )
+    N <- readline(prompt = "¿Cuál es el valor de N? Por favor, ingrese el número únicamente:")
     N <- as.numeric(N)
-    beta <- readline(prompt = "¿Cuál es el valor de beta?" )
-    beta <- as.numeric(beta)
-    ro <- readline(prompt = "¿Cuál es el valor de ro?" )
-    ro <- as.numeric(ro)
-    delta <- readline(prompt = "¿Cuál es el valor de delta?" )
-    delta <- as.numeric(delta)
-    gama <- readline(prompt = "¿Cuál es el valor de gama?" )
-    gama <- as.numeric(gama)
-    S <- readline(prompt = "¿Cuál es el valor de S?" )
+    S <- readline(prompt = "¿Cuántos susceptibles hay? Por favor, ingrese el número únicamente:")
     S <- as.numeric(S)
-    mu1 <- readline(prompt = "¿Cuál es la tasa de muerte de los susceptibles?" )
+    mu1 <- readline(prompt = "¿Cuál es la tasa de muerte de los susceptibles? Por favor, ingrese el número únicamente:")
     mu1 <- as.numeric(mu1)
-    E <- readline(prompt = "¿Cuál es el valor de expuestos?" )
+    beta <- readline(prompt = "¿Cuál es el valor de beta? Por favor, ingrese el número únicamente:")
+    beta <- as.numeric(beta)
+    E <- readline(prompt = "¿Cuántos expuestos hay? Por favor, ingrese el número únicamente:")
     E <- as.numeric(E)
-    mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los expuestos?" )
+    mu2 <- readline(prompt = "¿Cuál es la tasa de muerte de los expuestos? Por favor, ingrese el número únicamente:")
     mu2 <- as.numeric(mu2)
-    I <- readline(prompt = "¿Cuál es el valor de infectados?" )
+    delta <- readline(prompt = "¿Cuál es el valor de delta? Por favor, ingrese el número únicamente:")
+    delta <- as.numeric(delta)
+    I <- readline(prompt = "¿Cuántos infectados hay? Por favor, ingrese el número únicamente:")
     I <- as.numeric(I)
-    mu3 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados?" )
+    mu3 <- readline(prompt = "¿Cuál es la tasa de muerte de los infectados? Por favor, ingrese el número únicamente:")
     mu3 <- as.numeric(mu3)
-    R <- readline(prompt = "¿Cuál es el valor de R?" )
+    gama <- readline(prompt = "¿Cuál es el valor de gama? Por favor, ingrese el número únicamente:")
+    gama <- as.numeric(gama)
+    R <- readline(prompt = "¿Cuántos recuperados hay? Por favor, ingrese el número únicamente:" )
     R <- as.numeric(R)
-    mu4 <- readline(prompt = "¿Cuál es la tasa de muerte de los recuperados?" )
+    mu4 <- readline(prompt = "¿Cuál es la tasa de muerte de los recuperados? Por favor, ingrese el número únicamente:")
     mu4 <- as.numeric(mu4)
-    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ro <- readline(prompt = "¿Cuál es el valor de ro? Por favor, ingrese el número únicamente:")
+    ro <- as.numeric(ro)
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? Por favor, ingrese el número únicamente:")
     ti <- as.numeric(ti)
     parametro2 <- c(beta=beta, delta=delta, gama=gama, mu=mu, N=N, mu1=mu1, mu2=mu2, mu3=mu3, mu4=mu4)
     daprincipio <- c(S=S, E=E, I=I, R=R)
@@ -409,8 +396,9 @@ modelando <- function(){
     outo <- ode(daprincipio, taaim, SEIRS, parametro2)
     matplot(outo[ , 1], outo[ , 2:5], type = "l", xlab = "Tiempo", ylab = "Población",
             main = " Modelo SEIRS", lwd = 2) ; legend("topright", c("Susceptible", "Expuesto","Infectado","Recuperado"), 
-                                                     col = 1:5,lty=1:5,cex=0.5)
+                                                      col = 1:5,lty=1:5,cex=0.5)
   }else if(p1 == "SEIRS" & p2 == F){
+    i12 <-readJPEG("image_model_2/SEIRS.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i12,0,0,1,1)
     SEIRS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- - beta*S*I + ro*R
@@ -420,23 +408,23 @@ modelando <- function(){
         list(c(dS, dE, dI, dR))
       })
     }
-    beta <- readline(prompt = "¿Cuál es el valor de beta?" )
-    beta <- as.numeric(beta)
-    ro <- readline(prompt = "¿Cuál es el valor de ro?" )
-    ro <- as.numeric(ro)
-    delta <- readline(prompt = "¿Cuál es el valor de delta?" )
-    delta <- as.numeric(delta)
-    gama <- readline(prompt = "¿Cuál es el valor de gama?" )
-    gama <- as.numeric(gama)
-    S <- readline(prompt = "¿Cuál es el valor de S?" )
+    S <- readline(prompt = "¿Cuántos susceptibles hay? Por favor, ingrese el número únicamente:" )
     S <- as.numeric(S)
-    E <- readline(prompt = "¿Cuál es el valor de expuestos?" )
+    beta <- readline(prompt = "¿Cuál es el valor de beta? Por favor, ingrese el número únicamente:")
+    beta <- as.numeric(beta)
+    E <- readline(prompt = "¿Cuántos expuestos hay? Por favor, ingrese el número únicamente:")
     E <- as.numeric(E)
-    I <- readline(prompt = "¿Cuál es el valor de infectados?" )
+    delta <- readline(prompt = "¿Cuál es el valor de delta? Por favor, ingrese el número únicamente:")
+    delta <- as.numeric(delta)
+    I <- readline(prompt = "¿Cuántos infectados hay? Por favor, ingrese el número únicamente:")
     I <- as.numeric(I)
-    R <- readline(prompt = "¿Cuál es el valor de R?" )
+    gama <- readline(prompt = "¿Cuál es el valor de gama? Por favor, ingrese el número únicamente:")
+    gama <- as.numeric(gama)
+    ro <- readline(prompt = "¿Cuál es el valor de ro? Por favor, ingrese el número únicamente:")
+    ro <- as.numeric(ro)
+    R <- readline(prompt = "¿Cuántos recuperados hay? Por favor, ingrese el número únicamente:")
     R <- as.numeric(R)
-    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? : " )
+    ti <- readline(prompt = "¿Cuál es el tiempo total del modelo? Por favor, ingrese el número únicamente:")
     ti <- as.numeric(ti)
     parametro2 <- c(beta=beta, delta=delta, gama=gama, mu=mu, N=N, mu1=mu1, mu2=mu2, mu3=mu3, mu4=mu4)
     daprincipio <- c(S=S, E=E, I=I, R=R)
