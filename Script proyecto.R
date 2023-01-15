@@ -8,7 +8,7 @@ modelando <- function(){
   p2 <- readline(prompt = "¿El modelo lleva demografía? En caso de llevar, contestar con T o  TRUE, si no es el caso, contestar con F o False :  ")
   p2 <- as.logical(p2)
   if(p1 == "SI" & p2 == T){  ## LISTO GRF
-    i1 <-readJPEG("image_model_2/SIP.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i1,0,0,1,1)
+    i1 <-readJPEG("image_model_2/SIP.jpeg",native=TRUE) ;par(mai= c(.2,.2,.2,.2)) ;plot(0:5,0:5, type="n",ann=FALSE,axes=FALSE) ; rasterImage(i1,-0.2,-1.5 ,5.35 ,6.7)
     SI <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- mu*N - beta*S*I - mu1*S
@@ -41,7 +41,7 @@ modelando <- function(){
                                                      lty=1:3,cex=0.5)
     
   }else if(p1 == "SI" & p2 == F){
-    i2 <-readJPEG("image_model_2/SI.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i2,0,0,1,1)
+    i2 <-readJPEG("image_model_2/SI.jpeg",native=TRUE) ;par(mai= c(.2,.2,.2,.2)) ;plot(0:5,0:5, type="n",ann=FALSE,axes=FALSE) ; rasterImage(i2,-0.2,-0.6 ,5.2 ,5.4)
     
     SI <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
@@ -67,7 +67,7 @@ modelando <- function(){
                                                    col = 1:3,lty=1:3,cex=0.5)
     
   }else if(p1 == "SIS" & p2 == T){
-    i3 <-readJPEG("image_model_2/SISP.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i3,0,0,1,1)
+    i3 <-readJPEG("image_model_2/SISP.jpeg",native=TRUE) ;par(mai= c(.2,.2,.2,.2)) ;plot(0:5,0:5, type="n",ann=FALSE,axes=FALSE) ; rasterImage(i3,-0.2,-0.6 ,5.2 ,5.8)
     SIS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- mu*N - beta*S*I + gama*I - mu1*S
@@ -102,7 +102,7 @@ modelando <- function(){
             main = " Modelo SIS D.", lwd = 2) ; legend("topright", c("Susceptible", "Infectado"), 
                                                        col = 1:3,lty=1:3,cex=0.5)
   }else if(p1 == "SIS" & p2 == F){
-    i4 <-readJPEG("image_model_2/SIS.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i4,0,0,1,1)
+    i4 <-readJPEG("image_model_2/SIS.jpeg",native=TRUE) ;par(mai= c(.2,.2,.2,.2)) ;plot(0:5,0:5, type="n",ann=FALSE,axes=FALSE) ; rasterImage(i4,-0.2,-0.4 ,5.2 ,5.4)
     SIS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- - beta*S*I + gama*I
@@ -129,7 +129,7 @@ modelando <- function(){
                                                     col = 1:3,lty=1:3,cex=0.5)
     
   }else if(p1 == "SIR" & p2 == T){
-    i5 <-readJPEG("image_model_2/SIRP.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i5,0,0,1,1)
+    i5 <-readJPEG("image_model_2/SIRP.jpeg",native=TRUE) ;par(mai= c(.2,.2,.2,.2)) ;plot(0:5,0:5, type="n",ann=FALSE,axes=FALSE) ; rasterImage(i5,-0.2,-0.6 ,5.2 ,5.8)
     SIR <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- mu*N - beta*S*I - mu1*S
@@ -168,7 +168,7 @@ modelando <- function(){
             main = " Modelo SIR", lwd = 2) ; legend("topright", c("Susceptible", "Infectado", "Recuperado"), 
                                                     col = 1:4,lty=1:4,cex=0.5)
   }else if(p1 == "SIR" & p2 == F){
-    i6 <-readJPEG("image_model_2/SIR.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i6,0,0,1,1)
+    i6 <-readJPEG("image_model_2/SIR.jpeg",native=TRUE) ;par(mai= c(.2,.2,.2,.2)) ;plot(0:5,0:5, type="n",ann=FALSE,axes=FALSE) ; rasterImage(i6,-0.2,-1.9 ,5.2 ,5.5)
     SIR <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- - beta*S*I 
@@ -197,7 +197,7 @@ modelando <- function(){
             main = " Modelo SIR", lwd = 2) ; legend("topright", c("Susceptible", "Infectado","Recuperado"), 
                                                     col = 1:4,lty=1:4,cex=0.5)
   }else if(p1 == "SIRS" & p2 == T){
-    i7 <-readJPEG("image_model_2/SIRSP.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i7,0,0,1,1)
+    i7 <-readJPEG("image_model_2/SIRSP.jpeg",native=TRUE) ;par(mai= c(.2,.2,.2,.2)) ;plot(0:5,0:5, type="n",ann=FALSE,axes=FALSE) ; rasterImage(i7,-0.35,-0.6 ,5.3 ,5.8)
     SIRS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- mu*N - beta*S*I + delta*R - mu1*S
@@ -238,7 +238,7 @@ modelando <- function(){
             main = " Modelo SIRS D.", lwd = 2) ; legend("topright", c("Susceptible", "Infectado","Recuperado"), 
                                                         col = 1:4,lty=1:4,cex=0.5)
   }else if(p1 == "SIRS" & p2 == F){
-    i8 <-readJPEG("image_model_2/SIRS.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i8,0,0,1,1)
+    i8 <-readJPEG("image_model_2/SIRS.jpeg",native=TRUE) ;par(mai= c(.2,.2,.2,.2)) ;plot(0:5,0:5, type="n",ann=FALSE,axes=FALSE) ; rasterImage(i8,-0.9,-.8 ,5.9 ,5.5)
     SIRS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- - beta*S*I + delta*R
@@ -270,7 +270,7 @@ modelando <- function(){
                                                      col = 1:4,lty=1:4,cex=0.5)
     
   }else if(p1 == "SEIR" & p2 == T){
-    i9 <-readJPEG("image_model_2/SEIRP.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i9,0,0,1,1)
+    i9 <-readJPEG("image_model_2/SEIRP.jpeg",native=TRUE) ;par(mai= c(.2,.2,.2,.2)) ;plot(0:5,0:5, type="n",ann=FALSE,axes=FALSE) ; rasterImage(i9,-0.2,-0.6 ,5.2 ,5.5)
     SEIR <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- mu*N - beta*S*I - mu1*S
@@ -316,7 +316,7 @@ modelando <- function(){
             main = " Modelo SEIR", lwd = 2) ; legend("topright", c("Susceptible", "Expuesto","Infectado","Recuperado"), 
                                                      col = 1:5,lty=1:5,cex=0.5)
   }else if(p1 == "SEIR" & p2 == F){
-    i10 <-readJPEG("image_model_2/SEIR.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i10,0,0,1,1)
+    i10 <-readJPEG("image_model_2/SEIR.jpeg",native=TRUE) ;par(mai= c(.2,.2,.2,.2)) ;plot(0:5,0:5, type="n",ann=FALSE,axes=FALSE) ; rasterImage(i10,-0.2,-1.9 ,5.2 ,5.5)
     SEIR <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- - beta*S*I 
@@ -350,7 +350,7 @@ modelando <- function(){
             main = " Modelo SEIR", lwd = 2) ; legend("topright", c("Susceptible", "Expuesto","Infectado","Recuperado"), 
                                                      col = 1:5,lty=1:5,cex=0.5)
   }else if(p1 == "SEIRS" & p2 == T){
-    i11 <-readJPEG("image_model_2/SEIRSP.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i11,0,0,1,1)
+    i11 <-readJPEG("image_model_2/SEIRSP.jpeg",native=TRUE) ;par(mai= c(.2,.2,.2,.2)) ;plot(0:5,0:5, type="n",ann=FALSE,axes=FALSE) ; rasterImage(i11,-0.2,-0.6 ,5.2 ,5.6)
     SEIRS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- mu*N - beta*S*I + ro*R - mu1*S
@@ -398,7 +398,7 @@ modelando <- function(){
             main = " Modelo SEIRS", lwd = 2) ; legend("topright", c("Susceptible", "Expuesto","Infectado","Recuperado"), 
                                                       col = 1:5,lty=1:5,cex=0.5)
   }else if(p1 == "SEIRS" & p2 == F){
-    i12 <-readJPEG("image_model_2/SEIRS.jpeg",native=TRUE) ; plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE) ; rasterImage(i12,0,0,1,1)
+    i12 <-readJPEG("image_model_2/SEIRS.jpeg",native=TRUE) ;par(mai= c(.2,.2,.2,.2)) ;plot(0:5,0:5, type="n",ann=FALSE,axes=FALSE) ; rasterImage(i12,-0.2,-0.6 ,5.2 ,5.3)
     SEIRS <- function(t,state,parameters){
       with(as.list(c(state, parameters)), {
         dS <- - beta*S*I + ro*R
