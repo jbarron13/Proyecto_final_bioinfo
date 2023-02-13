@@ -1,5 +1,4 @@
 # Script Final #
-
 modelando <- function(){
   library(deSolve)
   library(jpeg)
